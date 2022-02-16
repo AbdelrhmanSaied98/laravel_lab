@@ -10,10 +10,10 @@
                 {{$data['id']}}
             </li>
             <li>
-            {{$data['name']}}
+                {{$data['title']}}
             </li>
             <li>
-            {{$data['title']}}
+                {{$data['description']}}
             </li>
         </ul>
     </body>

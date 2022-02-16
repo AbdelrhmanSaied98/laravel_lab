@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,48 +17,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/welcome', function () {
     return view('welcome');
 });
-Route::get('/list', function () {
-    $data = 
-    [
-        [
-            "id" => 1,
-            "name" => "Abdelrahman",
-            "title" => "hi"
-        ],
-        [
-            "id" => 2,
-            "name" => "Ahmed",
-            "title" => "hi"
-        ],
-        [
-            "id" => 3,
-            "name" => "Mohamed",
-            "title" => "hi"
-        ],
-        [
-            "id" => 4,
-            "name" => "Mostafa",
-            "title" => "hi"
-        ]
-    ];
-    return view('posts.index',["data"=>$data]);
-});
-Route::get('/show/{id}', function ($id) {
-    $data = [
-        "id" => $id,
-        "name" => "Abdelrahman",
-        "title" => "hi"
-    ];
-    return view('posts.show',["data"=>$data]);
-});
-Route::get('/store', function () {
-    return view('posts.store');
-});
-Route::get('/edit/{id}', function ($id) {
-    $data = [
-        "id" => $id,
-        "name" => "Abdelrahman",
-        "title" => "hi"
-    ];
-    return view('posts.edit',["data"=>$data]);
-});
+
+Route::get('/posts',[PostController::class,"index"]);
+Route::get('/posts/create',[PostController::class,"create"]);
+Route::get('/posts/{id}',[PostController::class,"show"]);
+Route::get('/posts/{id}/edit',[PostController::class,"edit"]);
+Route::post('/posts',[PostController::class,"store"]);
+Route::patch('/posts/{id}',[PostController::class,"update"]);
+Route::delete('/posts/{id}',[PostController::class,"destroy"]);
+
+
+
+
+
+// Route::get('/edit/{id}', function ($id) {
+//     $data = [
+//         "id" => $id,
+//         "name" => "Abdelrahman",
+//         "title" => "hi"
+//     ];
+//     return view('posts.edit',["data"=>$data]);
+// });
