@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,27 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/welcome', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts',[PostController::class,"index"]);
-Route::get('/posts/create',[PostController::class,"create"]);
-Route::get('/posts/{id}',[PostController::class,"show"]);
-Route::get('/posts/{id}/edit',[PostController::class,"edit"]);
-Route::post('/posts',[PostController::class,"store"]);
-Route::patch('/posts/{id}',[PostController::class,"update"]);
-Route::delete('/posts/{id}',[PostController::class,"destroy"]);
+Route::get('/dashboard', function () {
+    return redirect('/posts');
+})->middleware(['auth'])->name('dashboard');
 
-
-
-
-
-// Route::get('/edit/{id}', function ($id) {
-//     $data = [
-//         "id" => $id,
-//         "name" => "Abdelrahman",
-//         "title" => "hi"
-//     ];
-//     return view('posts.edit',["data"=>$data]);
-// });
+Route::resource('posts',PostController::class)->middleware(['auth']);
+require __DIR__.'/auth.php';
